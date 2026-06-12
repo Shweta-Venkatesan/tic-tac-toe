@@ -826,7 +826,7 @@ export default function TicTacToeMaster() {
     ];
 
     return (
-      <aside style={{ background: 'var(--bg-panel)', borderRight: '1px solid var(--border-subtle)', overflowY: 'auto', height: '100%', paddingBottom: '20px' }}>
+      <aside className="h-full overflow-y-auto pb-5">
         {/* Game Mode */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '18px 16px 10px', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
           <i className="bi bi-controller" /> GAME MODE
@@ -939,7 +939,7 @@ export default function TicTacToeMaster() {
     const st = getStatusProps();
 
     return (
-      <div style={{ background: 'var(--bg-base)', padding: '28px 32px', display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
+      <div className="flex-1 flex flex-col items-center py-8 px-4 md:px-8 bg-[var(--bg-base)] h-full overflow-y-auto">
         {/* Status Bar */}
         <div style={{ width: '100%', maxWidth: '380px', background: st.bg, border: '1px solid var(--border-default)', borderLeft: st.borderL, borderRadius: 'var(--radius-lg)', padding: '12px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -950,7 +950,7 @@ export default function TicTacToeMaster() {
         </div>
 
         {/* Game Board */}
-        <div style={{ width: '320px', height: '320px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridTemplateRows: 'repeat(3, 1fr)', gap: '6px', background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-xl)', padding: '10px', position: 'relative' }}>
+        <div style={{ width: '100%', maxWidth: '320px', aspectRatio: '1/1', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridTemplateRows: 'repeat(3, 1fr)', gap: '6px', background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: 'var(--radius-xl)', padding: '10px', position: 'relative' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px)', pointerEvents: 'none', borderRadius: 'inherit' }} />
           
           {board.map((cell, idx) => {
@@ -1005,7 +1005,7 @@ export default function TicTacToeMaster() {
         </div>
 
         {/* Game Controls */}
-        <div style={{ display: 'flex', gap: '8px', marginTop: '20px', width: '100%', maxWidth: '380px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '20px', width: '100%', maxWidth: '380px' }}>
           <button onClick={handleNewGame} style={{ flex: 1, background: 'var(--emerald-dim)', border: '1px solid rgba(16,185,129,0.30)', color: 'var(--emerald)', borderRadius: 'var(--radius-md)', padding: '10px', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: 'pointer', transition: 'all 0.15s' }}>
             <i className="bi bi-arrow-counterclockwise" /> NEW GAME
           </button>
@@ -1041,7 +1041,7 @@ export default function TicTacToeMaster() {
     const barA = (analytics.aiWins / tot) * 100;
 
     return (
-      <aside style={{ background: 'var(--bg-panel)', borderLeft: '1px solid var(--border-subtle)', overflowY: 'auto', height: '100%', paddingBottom: '20px' }}>
+      <aside className="h-full overflow-y-auto pb-5">
         
         {/* Analytics */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '18px 16px 10px', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
@@ -1236,16 +1236,19 @@ if minimizing:
       <GlobalStyles />
       <AppHeader />
       
-      {/* Container matching Three-Column Structure */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', height: 'calc(100vh - 56px)' }}>
-        {/* Desktop grid handles 25% 50% 25% */}
-        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap' }}>
-          <div style={{ flex: '1 1 25%', minWidth: '250px' }}><LeftPanel /></div>
-          <div style={{ flex: '1 1 50%', minWidth: '350px' }}><GameCenter /></div>
-          <div style={{ flex: '1 1 25%', minWidth: '250px' }}><RightPanel /></div>
+      {/* Fully Responsive Container */}
+      <div className="flex flex-col md:flex-row min-h-[calc(100vh-56px)] w-full relative">
+        <div className="w-full md:w-1/4 border-b md:border-b-0 md:border-r border-[var(--border-subtle)] bg-[var(--bg-panel)] h-auto md:h-[calc(100vh-56px)] md:sticky md:top-[56px] overflow-hidden">
+          <LeftPanel />
         </div>
-        <EducationPanel />
+        <div className="w-full md:w-2/4 bg-[var(--bg-base)] flex-1 min-h-[calc(100vh-56px)]">
+          <GameCenter />
+        </div>
+        <div className="w-full md:w-1/4 border-t md:border-t-0 md:border-l border-[var(--border-subtle)] bg-[var(--bg-panel)] h-auto md:h-[calc(100vh-56px)] md:sticky md:top-[56px] overflow-hidden">
+          <RightPanel />
+        </div>
       </div>
+      <EducationPanel />
     </div>
   );
 }
