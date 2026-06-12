@@ -1,10 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#22d3ee"/>
-      <stop offset="100%" stop-color="#818cf8"/>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#06b6d4" />
     </linearGradient>
+    <filter id="glowX">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComponentTransfer in="blur" result="boost">
+        <feFuncA type="linear" slope="1.5"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode in="boost"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowO">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComponentTransfer in="blur" result="boost">
+        <feFuncA type="linear" slope="1.5"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode in="boost"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
-  <rect width="100" height="100" rx="20" fill="url(#g)"/>
-  <text x="50" y="68" font-size="56" text-anchor="middle" fill="white" font-family="Arial Black" font-weight="900">⚡</text>
+
+  <!-- Base dark background with rounded corners -->
+  <rect x="0" y="0" width="120" height="120" rx="28" fill="#07080f" />
+  
+  <!-- Subtle glowing gradient panel background & border -->
+  <rect x="8" y="8" width="104" height="104" rx="20" fill="url(#grad)" opacity="0.12" />
+  <rect x="8" y="8" width="104" height="104" rx="20" fill="none" stroke="url(#grad)" stroke-width="3" />
+  
+  <!-- Tech connection nodes around the edges (CPU aesthetic) -->
+  <path d="M 60 0 L 60 8 M 0 60 L 8 60 M 120 60 L 112 60 M 60 120 L 60 112" stroke="#06b6d4" stroke-width="4" stroke-linecap="round" />
+  <path d="M 30 0 L 30 5 M 90 0 L 90 5 M 30 120 L 30 115 M 90 120 L 90 115 M 0 30 L 5 30 M 0 90 L 5 90 M 120 30 L 115 30 M 120 90 L 115 90" stroke="#171829" stroke-width="3" stroke-linecap="round" />
+
+  <!-- The Tic-Tac-Toe Grid -->
+  <path d="M 46 24 L 46 96 M 74 24 L 74 96 M 24 46 L 96 46 M 24 74 L 96 74" stroke="#1f223c" stroke-width="5" stroke-linecap="round" />
+
+  <!-- Center Violet 'X' -->
+  <path d="M 52 52 L 68 68 M 68 52 L 52 68" stroke="#8b5cf6" stroke-width="6" stroke-linecap="round" filter="url(#glowX)"/>
+  
+  <!-- Top Right Cyan 'O' -->
+  <circle cx="85" cy="35" r="7" fill="none" stroke="#06b6d4" stroke-width="5" filter="url(#glowO)"/>
+  
+  <!-- Bottom Left Emerald AI computation dot -->
+  <circle cx="35" cy="85" r="3.5" fill="#10b981" filter="url(#glowO)"/>
 </svg>
